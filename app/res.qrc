@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/background.jpg</file>
+        <file>main.qml</file>
+        <file>gui/MainWindow.qml</file>
+        <file>gui/DynamicButton.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>gui/MainPage.qml</file>
+        <file>gui/SettingsPage.qml</file>
+        <file>gui/AboutPage.qml</file>
+        <file>gui/HelpPage.qml</file>
     </qresource>
 </RCC>

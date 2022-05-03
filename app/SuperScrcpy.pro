@@ -1,4 +1,6 @@
-QT += quick
+QT += core quick network
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
@@ -10,8 +12,11 @@ SOURCES += \
         main.cpp
 
 RESOURCES += \
-        qml.qrc \
         res.qrc
+
+OTHER_FILES += \
+        main.qml \
+        gui\MainWindow.qml
 
 # \表示开始和分隔，/表示文件路径，/会引入文件夹，\则可以不引入文件夹
 # 用\找到文件则表示找到特定文件，忽略文件夹
@@ -27,3 +32,30 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+UI_DIR=./UI # 解决修改qml后每次都需重新编译的问题
+
+# 子模块
+include($$PWD/backend/adb/adb.pri)
+include($$PWD/backend/server/server.pri)
+include($$PWD/backend/decoder/decoder.pri)
+include($$PWD/backend/common/common.pri)
+include($$PWD/backend/render/render.pri)
+
+# 包含目录
+INCLUDEPATH += \
+        $$PWD/backend/adb \
+        $$PWD/backend/server \
+        $$PWD/backend/decoder \
+        $$PWD/backend/common \
+        $$PWD/backend/render \
+        $$PWD/lib/thrid_party/ffmpeg/include
+
+# 依赖模块
+LIBS += \
+        -L$$PWD/lib/thrid_party/ffmpeg/lib -lavformat \
+        -L$$PWD/lib/thrid_party/ffmpeg/lib -lavcodec \
+        -L$$PWD/lib/thrid_party/ffmpeg/lib -lavutil \
+        -L$$PWD/lib/thrid_party/ffmpeg/lib -lswscale
