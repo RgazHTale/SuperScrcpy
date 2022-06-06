@@ -33,7 +33,7 @@ private:
     bool m_quit = false;
 
     // 数据缓存
-    quint8* m_buffer = Q_NULLPTR; // 缓冲区
+    quint8* m_buffer = Q_NULLPTR; // 缓冲区 空指针 0 false
     qint32 m_bufferSize = 0; // 缓冲区大小
     qint32 m_dataSize = 0; // 表示本次收到了多少数据
 };

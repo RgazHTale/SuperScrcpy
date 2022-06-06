@@ -9,7 +9,6 @@
 // 启动之后就建立的连接（相当于网络通信）
 // 因为之前我们用套接字（qt之中专门为服务器封装的套接字，QTcpServer，这里就称套接字了）监听了本地端口，所以当连接建立时他会发出信号
 
-
 #ifndef SERVER_H
 #define SERVER_H
 #include <QObject>
@@ -34,8 +33,8 @@ class server : public QObject
 public:
     server(QObject *parent=Q_NULLPTR);
 
-    bool start(const QString& serial, quint16 localPort, quint16 maxSize, quint32 bitRate);
-    void stop();
+    Q_INVOKABLE bool start(const QString& serial, quint16 localPort, quint16 maxSize, quint32 bitRate);
+    Q_INVOKABLE void stop();
     DeviceSocket* getDeviceSocket();
 signals:
     void serverStartResult(bool success);
@@ -73,6 +72,7 @@ private:
     TcpServer m_serverSocket;
     DeviceSocket* m_deviceSocket = Q_NULLPTR;
     // m_serverSocket建立连接，然后把这个连接交给m_deviceSocket
+    // 然后会把m_deviceSocket这个套接字交给解码器
 };
 
 #endif // SERVER_H

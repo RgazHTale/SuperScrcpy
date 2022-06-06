@@ -1,5 +1,6 @@
 // 解码器模块
 // 此模块将放到一个单独的线程之中
+// 解码得到的数据是yuv数据
 
 #ifndef DECODER_H
 #define DECODER_H
@@ -27,7 +28,7 @@ public:
     static bool init();
     static void deInit();    
 
-    void setFrames(Frames* frames);
+    Q_INVOKABLE void setFrames(Frames* frames);
     void setDeviceSocket(DeviceSocket* deviceSocket);
     qint32 recvData(quint8* buf, qint32 bufSize);
     bool startDecode();

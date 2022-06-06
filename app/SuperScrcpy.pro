@@ -43,6 +43,7 @@ include($$PWD/backend/server/server.pri)
 include($$PWD/backend/decoder/decoder.pri)
 include($$PWD/backend/common/common.pri)
 include($$PWD/backend/render/render.pri)
+include($$PWD/backend/access/access.pri)
 
 # 包含目录
 INCLUDEPATH += \
@@ -51,6 +52,7 @@ INCLUDEPATH += \
         $$PWD/backend/decoder \
         $$PWD/backend/common \
         $$PWD/backend/render \
+        $$PWD/backend/access \
         $$PWD/lib/thrid_party/ffmpeg/include
 
 # 依赖模块
@@ -59,3 +61,5 @@ LIBS += \
         -L$$PWD/lib/thrid_party/ffmpeg/lib -lavcodec \
         -L$$PWD/lib/thrid_party/ffmpeg/lib -lavutil \
         -L$$PWD/lib/thrid_party/ffmpeg/lib -lswscale
+
+HEADERS +=

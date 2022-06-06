@@ -1,20 +1,22 @@
 #ifndef FRAMES_H
 #define FRAMES_H
 
+// 需要继承QObject才可以注册
+#include <QObject>
 #include <QMutex>
 #include <QWaitCondition>
 
 // forward declarations
 typedef struct AVFrame AVFrame;
 
-class Frames
+class Frames : public QObject
 {
 public:
     Frames();
     virtual ~Frames();
 
-    bool init();
-    void deInit();
+    Q_INVOKABLE bool init();
+    Q_INVOKABLE void deInit();
     void lock();
     void unLock();
 

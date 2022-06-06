@@ -12,6 +12,9 @@
 #include <QDebug>
 
 #include "adbprocess.h"
+#include "decoder.h"
+#include "server.h"
+#include "frames.h"
 
 int main(int argc, char *argv[])
 {    
@@ -23,9 +26,11 @@ int main(int argc, char *argv[])
     qputenv("QTSCRCPY_SERVER_PATH", "..\\..\\..\\thrid_party\\scrcpy-server.jar");
 #endif
 
-    // 注册adbprocess到qml类型系统中
-    qmlRegisterType<AdbProcess>("AdbProcess", 1, 0, "AdbProcess");
-
+    /**************************mycode***************************/
+    // 注册C++类到qml类型系统中
+    qmlRegisterType<server>("Server", 1, 0, "Server");
+    qmlRegisterType<Decoder>("Decoder", 1, 0, "Decoder");
+    qmlRegisterType<Frames>("Frames", 1, 0, "Frames");
     /**************************mycode***************************/
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -49,6 +54,10 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
-    return app.exec();
+    int ret = app.exec();
+
+    Decoder::deInit();
+
+    return ret;
 }
 

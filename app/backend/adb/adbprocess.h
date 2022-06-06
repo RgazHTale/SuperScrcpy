@@ -24,8 +24,7 @@ public:
 
     AdbProcess(QObject *parent = Q_NULLPTR);
 
-    // qml将要调用的方法
-    Q_INVOKABLE void push(const QString& serial, const QString& local, const QString& remote);
+    void push(const QString& serial, const QString& local, const QString& remote);
 
     void execute(const QString& serial, const QStringList& args);
     void removePath(const QString& serial, const QString& path);

@@ -23,6 +23,10 @@ server::server(QObject *parent)
         QString deviceName;
         QSize size;
         // devices name, size
+        // 这个地方的deviceName和size不用赋值
+        // 因为在readInfo我们自定义的函数
+        // 它的形参是引用类型
+        // 所以在函数运行中会给deviceName和size赋值
         if (m_deviceSocket && m_deviceSocket->isValid() && readInfo(deviceName, size)) {
             disableTunnelReverse();
             removeServer();

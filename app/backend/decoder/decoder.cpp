@@ -41,6 +41,9 @@ void Decoder::setFrames(Frames *frames)
 }
 
 // 参数： Decoder对象，解码数据缓存，解码数据缓存大小
+// 这里buf和bufSize应该是做了某种宏定义
+// 这里的用法是直接调用read把数据读到buf中就行
+// 返回读到的数据大小
 static qint32 readPacket(void *opaque, quint8 *buf, qint32 bufSize) {
     Decoder *decoder = (Decoder*)opaque;
     if (decoder) {
@@ -51,7 +54,7 @@ static qint32 readPacket(void *opaque, quint8 *buf, qint32 bufSize) {
 
 void Decoder::setDeviceSocket(DeviceSocket* deviceSocket)
 {
-    // 设置socket
+    // 把server中建立的套接字交给解码器
     m_deviceSocket = deviceSocket;
 }
 
@@ -77,6 +80,8 @@ qint32 Decoder::recvData(quint8* buf, qint32 bufSize)
 // 开始解码
 bool Decoder::startDecode()
 {
+    // 开始解码之前，需要先检查解码器是否已经获得了server的套接字
+    // 所以在开始解码之前我们需要调用setDeviceSocket函数
     if (!m_deviceSocket) {
         return false;
     }
@@ -125,6 +130,7 @@ void Decoder::run()
 
     // 初始化io上下文
     // 参数 ： 解码缓冲区，解码缓冲区大小，写标记（0即可），readPacket参数，数据读取回调函数
+    // 把数据读到decoderBuffer
     avioCtx = avio_alloc_context(decoderBuffer, BUFSIZE, 0, this, readPacket, NULL, NULL);
     if (!avioCtx) {
         qCritical("Could not allocate avio context");
@@ -184,11 +190,13 @@ void Decoder::run()
         // 解码
         int ret;
         // 解码h264
+        // 这里应该是解码一个（一帧）packet之后把数据放到codecCtx中
         if ((ret = avcodec_send_packet(codecCtx, &packet)) < 0) {
             qCritical("Could not send video packet: %d", ret);
             goto runQuit;
         }
         // 取出yuv
+        // 那么这里应该就是从codecCtx中取出一帧，保存在decodingFrame中
         if (decodingFrame) {
             ret = avcodec_receive_frame(codecCtx, decodingFrame);
         }
