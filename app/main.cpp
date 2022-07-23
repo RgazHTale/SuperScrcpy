@@ -5,16 +5,16 @@
 // 4.启动scrcpy-sercer，用于采集数据
 // 5.接收数据并渲染
 
-#include <QGuiApplication>
+#include <QApplication>
+
+//嵌入widget需要使用QApplication这个库
+//#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
 #include <QDir>
 #include <QDebug>
 
-#include "adbprocess.h"
-#include "decoder.h"
-#include "server.h"
-#include "frames.h"
+#include "access.h"
 
 int main(int argc, char *argv[])
 {    
@@ -28,16 +28,15 @@ int main(int argc, char *argv[])
 
     /**************************mycode***************************/
     // 注册C++类到qml类型系统中
-    qmlRegisterType<server>("Server", 1, 0, "Server");
-    qmlRegisterType<Decoder>("Decoder", 1, 0, "Decoder");
-    qmlRegisterType<Frames>("Frames", 1, 0, "Frames");
+    qmlRegisterType<Access>("Access", 1, 0, "Access");
     /**************************mycode***************************/
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    QGuiApplication app(argc, argv);
+    //QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     /**************************mycode***************************/
     // 实例化资源管理器

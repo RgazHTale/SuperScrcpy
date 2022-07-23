@@ -44,6 +44,8 @@ include($$PWD/backend/decoder/decoder.pri)
 include($$PWD/backend/common/common.pri)
 include($$PWD/backend/render/render.pri)
 include($$PWD/backend/access/access.pri)
+include($$PWD/backend/android/android.pri)
+include($$PWD/backend/inputcontrol/inputcontrol.pri)
 
 # 包含目录
 INCLUDEPATH += \
@@ -53,6 +55,8 @@ INCLUDEPATH += \
         $$PWD/backend/common \
         $$PWD/backend/render \
         $$PWD/backend/access \
+        $$PWD/backend/android \
+        $$PWD/backend/inputcontrol \
         $$PWD/lib/thrid_party/ffmpeg/include
 
 # 依赖模块

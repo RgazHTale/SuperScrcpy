@@ -66,6 +66,7 @@ qint32 Decoder::recvData(quint8* buf, qint32 bufSize)
     if (m_deviceSocket) {
         // 从deviceSocket获取h264数据
         qint32 len = m_deviceSocket->subThreadRecvData(buf, bufSize);
+        qDebug() << "recv data" << len;
         if (len == -1) {
             return AVERROR(errno);
         }

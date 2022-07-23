@@ -1,3 +1,5 @@
+// openGL是用于渲染图形的应用程序编程接口
+
 #ifndef QYUVOPENGLWIDGET_H
 #define QYUVOPENGLWIDGET_H
 #include <QOpenGLWidget>
@@ -12,7 +14,7 @@ public:
     explicit QYUVOpenGLWidget(QWidget *parent = nullptr);
     virtual ~QYUVOpenGLWidget();
 
-    // QWidget虚函数
+    // QWidget虚函数，用于布局
     QSize minimumSizeHint() const override;
     QSize sizeHint() const override;
 
@@ -53,6 +55,8 @@ private:
     QOpenGLShaderProgram m_shaderProgram;    
 
     // YUV纹理，用于生成纹理贴图
+    // yuv数据可以理解为三张图片
+    // 将这三张图片混合为纹理，贴在窗口上，就渲染出了视频
     GLuint m_texture[3] = {0};
 };
 

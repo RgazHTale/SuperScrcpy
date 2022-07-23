@@ -9,14 +9,14 @@
 // forward declarations
 typedef struct AVFrame AVFrame;
 
-class Frames : public QObject
+class Frames
 {
 public:
     Frames();
     virtual ~Frames();
 
-    Q_INVOKABLE bool init();
-    Q_INVOKABLE void deInit();
+    bool init();
+    void deInit();
     void lock();
     void unLock();
 

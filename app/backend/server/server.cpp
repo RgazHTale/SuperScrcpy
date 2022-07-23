@@ -12,7 +12,7 @@
 
 server::server(QObject *parent)
     : QObject(parent)
-{
+{    
     connect(&m_workProcess, &AdbProcess::adbProcessResult, this, &server::onWorkProcessResult);
     connect(&m_serverProcess, &AdbProcess::adbProcessResult, this, &server::onWorkProcessResult);
     connect(&m_serverSocket, &QTcpServer::newConnection, this, [this](){

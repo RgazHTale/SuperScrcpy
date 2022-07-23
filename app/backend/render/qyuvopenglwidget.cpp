@@ -69,6 +69,8 @@ QYUVOpenGLWidget::QYUVOpenGLWidget(QWidget *parent) : QOpenGLWidget(parent)
 QYUVOpenGLWidget::~QYUVOpenGLWidget()
 {
     // opengl函数要在opengl上下文中执行
+    // 前面三个虚函数可以直接执行opengl函数
+    // 是因为他们默认处于opengl上下文中
     makeCurrent();
     // 销毁定点缓冲对象
     m_vbo.destroy();

@@ -33,8 +33,8 @@ class server : public QObject
 public:
     server(QObject *parent=Q_NULLPTR);
 
-    Q_INVOKABLE bool start(const QString& serial, quint16 localPort, quint16 maxSize, quint32 bitRate);
-    Q_INVOKABLE void stop();
+    bool start(const QString& serial, quint16 localPort, quint16 maxSize, quint32 bitRate);
+    void stop();
     DeviceSocket* getDeviceSocket();
 signals:
     void serverStartResult(bool success);

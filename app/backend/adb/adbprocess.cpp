@@ -5,6 +5,7 @@
 #include "adbprocess.h"
 
 QString AdbProcess::s_adbPath = "";
+
 AdbProcess::AdbProcess(QObject *parent)
     : QProcess(parent)
 {
