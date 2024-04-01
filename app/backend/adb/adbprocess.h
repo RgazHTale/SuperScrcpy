@@ -1,4 +1,4 @@
-//这个类用于封装adb，即封装外部程序
+﻿//这个类用于封装adb，即封装外部程序
 
 #ifndef ADBPROCESS_H
 #define ADBPROCESS_H
@@ -24,12 +24,15 @@ public:
 
     AdbProcess(QObject *parent = Q_NULLPTR);
 
-    void push(const QString& serial, const QString& local, const QString& remote);
-
+    // 用于执行的接口
     void execute(const QString& serial, const QStringList& args);
+
+    // 具体执行什么命令
+    void push(const QString& serial, const QString& local, const QString& remote);// 推送jar程序
     void removePath(const QString& serial, const QString& path);
     void reverse(const QString& serial, const QString& deviceSocketName, quint16 localPort);
     void reverseRemove(const QString& serial, const QString& deviceSocketName);
+
     QStringList getDevicesSerialFromStdOut();
     QString getDeviceIPFromStdOut();
     QString getStdOut();
@@ -45,6 +48,7 @@ signals:
     void adbProcessResult(ADB_EXEC_RESULT processResult);
 
 private:
+    // 对QProcess的执行结果进行处理
     void initSignals();
 
     static QString s_adbPath;

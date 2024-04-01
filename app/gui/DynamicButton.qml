@@ -32,6 +32,10 @@ Rectangle {
     // 接口组件
     Access {
         id: access
+        onVedioStopChanged: {
+            status.text = "Start"
+            status.color = "#2EB2B5"
+        }
     }
 
     function transStatuts()

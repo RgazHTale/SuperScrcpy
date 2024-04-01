@@ -1,4 +1,4 @@
-#include <QFileInfo>
+﻿#include <QFileInfo>
 #include <QCoreApplication>
 
 #include "server.h"
@@ -173,6 +173,9 @@ bool server::removeServer()
     }
     m_serverCopiedToDevice = false;
 
+    // removeServer并不关心执行结果，所以我们直接新建一个AdbProcess实例
+    // 这是为了和自己的m_workProcess成员分开
+    // 不用成员变量执行，因为不想收到执行结果，前面成员变量的执行结果是和槽绑定了的
     AdbProcess* adb = new AdbProcess();
     if (!adb) {
         return false;
@@ -182,6 +185,7 @@ bool server::removeServer()
             sender()->deleteLater();
         }
     });
+    // 如果前面执行失败，adb已经被释放掉，这句话是不是会出问题？
     adb->removePath(m_serial, DEVICE_SERVER_PATH);
     return true;
 }

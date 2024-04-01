@@ -1,4 +1,4 @@
-// explain: Jax
+﻿// explain: Jax
 // 1.用push的命令启动adb，将scrcpy-sercer推送到手机
 // 2.adb启动反向代理功能，即将手机数据通过网络转发给PC
 // 3.电脑监听反向代理端口
@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
 
     // 配置环境变量
 #ifdef Q_OS_WIN32
-    qputenv("QTSCRCPY_ADB_PATH", "..\\..\\..\\thrid_party\\adb\\win\\adb.exe");
-    qputenv("QTSCRCPY_SERVER_PATH", "..\\..\\..\\thrid_party\\scrcpy-server.jar");
+    qputenv("QTSCRCPY_ADB_PATH", "..\\app\\lib\\thrid_party\\adb\\win\\adb.exe");
+    qputenv("QTSCRCPY_SERVER_PATH", "..\\app\\lib\\thrid_party\\scrcpy-server.jar");
 #endif
 
     /**************************mycode***************************/

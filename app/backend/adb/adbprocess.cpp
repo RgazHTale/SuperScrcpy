@@ -1,6 +1,7 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include <QFileInfo>
 #include <QCoreApplication>
+#include <iostream>
 
 #include "adbprocess.h"
 
@@ -23,12 +24,16 @@ QString AdbProcess::getAdbPath()
         if (s_adbPath.isEmpty() || !fileInfo.isFile()) {
             // 当前程序所在目录
             // 对这里保持疑问，这句语句是否正确？
-            s_adbPath = QCoreApplication::applicationDirPath() + "/adb";
+            // 回答：首先QCoreApplication::applicationDirPath()返回的就是以/拼接的路径
+            //s_adbPath = QCoreApplication::applicationDirPath() + "/adb";
+            // 这里给不给文件后缀名都行，不过为了严谨我还是给后缀名
+            s_adbPath = QCoreApplication::applicationDirPath() + "/adb.exe";
         }
     }
     return s_adbPath;
 }
 
+// 向指定设备发送命令
 void AdbProcess::execute(const QString &serial, const QStringList &args)
 {
     QStringList adbArgs;
@@ -46,7 +51,7 @@ void AdbProcess::push(const QString &serial, const QString &local, const QString
     adbArgs << "push";
     adbArgs << local;
     adbArgs << remote;
-    execute(serial, adbArgs);
+    execute(serial, adbArgs);// 这个函数是专门用来执行命令的
 }
 
 void AdbProcess::removePath(const QString &serial, const QString &path)
@@ -80,6 +85,8 @@ QStringList AdbProcess::getDevicesSerialFromStdOut()
 {
     // List of devices attached\r\nP7C0218510000537\tdevice\r\nP7C0218510000537\tdevice
     QStringList serials;
+
+    // 以换行符来切割字符串，即有\r\n又有\n的原因是windows和linux的换行符不一样
     QStringList devicesInfoList = m_standardOutput.split(QRegExp("\r\n|\n"), QString::SkipEmptyParts);
     for(QString deviceInfo : devicesInfoList) {
         QStringList deviceInfos = deviceInfo.split(QRegExp("\t"), QString::SkipEmptyParts);
@@ -118,6 +125,7 @@ QString AdbProcess::getErrorOut()
     return m_errorOutput;
 }
 
+// 对QProcess的执行结果进行处理
 void AdbProcess::initSignals()
 {
     connect(this, &QProcess::errorOccurred, this, [this](QProcess::ProcessError error){

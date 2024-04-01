@@ -55,15 +55,6 @@ ApplicationWindow {
             }
 
             ItemDelegate {
-                text: qsTr("Help")
-                width: parent.width
-                onClicked: {
-                    stackView.push("Help.qml")
-                    drawer.close()
-                }
-            }
-
-            ItemDelegate {
                 text: qsTr("About")
                 width: parent.width
                 onClicked: {
@@ -83,6 +74,20 @@ ApplicationWindow {
             Rectangle {
                 anchors.fill: parent
                 color: "blue"
+            }
+
+        }
+
+    }
+
+    Component {
+        id: aboutPage
+        Page {
+            title: qsTr("About")
+
+            Rectangle {
+                anchors.fill: parent
+                color: "red"
             }
 
         }

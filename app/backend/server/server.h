@@ -1,4 +1,4 @@
-// 启动server的流程
+﻿// 启动server的流程
 // 执行Start()，将m_serverStartStep设置为SSS_PUSH
 // 成功推送之后，m_workProcess将发射成功推送的信号
 // 这个信号会被this捕捉，然后将执行onWorkProcessResult()
@@ -26,7 +26,7 @@ class server : public QObject
         SSS_NULL,
         SSS_PUSH,
         SSS_ENABLE_REVERSE,
-        SSS_EXECUTE_SERVER,
+        SSS_EXECUTE_SERVER, // 执行手机上的jar程序，让其工作起来
         SSS_RUNNING,
     };
 

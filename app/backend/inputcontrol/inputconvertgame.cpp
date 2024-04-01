@@ -16,6 +16,7 @@ InputConvertGame::~InputConvertGame()
 
 }
 
+// 产生鼠标事件时调用此函数
 void InputConvertGame::mouseEvent(const QMouseEvent *from, const QSize &frameSize, const QSize &showSize)
 {
     if (m_gameMap) {
@@ -481,7 +482,8 @@ void InputConvertGame::mouseMoveStopTouch()
 
 bool InputConvertGame::switchGameMap()
 {
-    m_gameMap = !m_gameMap;    
+    //
+    m_gameMap = !m_gameMap;
     emit grabCursor(m_gameMap);
     if (m_gameMap) {
         QGuiApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
